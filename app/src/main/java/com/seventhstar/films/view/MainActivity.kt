@@ -1,8 +1,8 @@
-package com.example.films.view
+package com.seventhstar.films.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.films.R
+import com.seventhstar.films.R
 
 class MainActivity : AppCompatActivity() {
 

@@ -1,4 +1,4 @@
-package com.example.films
+package com.seventhstar.films
 
 import org.junit.Test
 

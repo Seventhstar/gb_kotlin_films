@@ -1,11 +1,13 @@
-package com.example.films.model
+package com.seventhstar.films.model
 
 class RepositoryImpl : Repository {
     override fun getFilmsFromServer(): FilmsList {
         return FilmsList()
     }
 
-    override fun getFilmsFromLocalStorage(): FilmsList {
-        return FilmsList()
+    override fun getFilmsFromLocalStorage(): List<Film> {
+        return getLocalFilms()
     }
+
+
 }

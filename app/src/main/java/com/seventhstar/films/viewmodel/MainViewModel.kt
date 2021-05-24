@@ -1,9 +1,9 @@
-package com.example.films.viewmodel
+package com.seventhstar.films.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.films.model.Repository
-import com.example.films.model.RepositoryImpl
+import com.seventhstar.films.model.Repository
+import com.seventhstar.films.model.RepositoryImpl
 
 class MainViewModel(
     private val liveDataToObserve: MutableLiveData<AppState> = MutableLiveData(),
