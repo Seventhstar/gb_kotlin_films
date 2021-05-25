@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Lesson_2</string>
+    <string name="app_name">Films</string>
     <string name="movie_image_description">poster of film</string>
     <string name="text_movie">good film</string>
     <string name="year">2015</string>

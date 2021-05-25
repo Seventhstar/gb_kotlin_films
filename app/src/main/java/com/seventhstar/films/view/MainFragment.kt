@@ -77,7 +77,7 @@ class MainFragment : Fragment() {
     }
 
     override fun onDestroyView() {
-        adapter.removeListener()
+        //adapter.removeListener()
         super.onDestroyView()
         _binding = null
     }

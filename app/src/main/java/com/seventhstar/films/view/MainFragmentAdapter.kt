@@ -40,9 +40,11 @@ class MainFragmentAdapter(private var onItemViewClickListener: OnItemViewClickLi
     }
 
     inner class MainViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+
         fun bind(film: Film) {
             itemView.findViewById<TextView>(R.id.tv_film_name).text = film.name
             itemView.findViewById<TextView>(R.id.tv_film_year).text = film.year.toString()
+            itemView.findViewById<TextView>(R.id.tv_film_rating).text = film.rating.toString()
             itemView.findViewById<ImageView>(R.id.movie_poster).setImageResource(R.drawable.movie)
 
             itemView.setOnClickListener {
