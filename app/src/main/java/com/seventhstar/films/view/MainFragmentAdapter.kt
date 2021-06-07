@@ -10,6 +10,7 @@ import com.seventhstar.films.R
 import com.seventhstar.films.model.FilmDTO
 import com.seventhstar.films.model.FilmsDTO
 import com.seventhstar.films.view.MainFragment.OnItemViewClickListener
+import com.squareup.picasso.Picasso
 
 class MainFragmentAdapter(private var onItemViewClickListener: OnItemViewClickListener?) :
     RecyclerView.Adapter<MainFragmentAdapter.MainViewHolder>() {
@@ -54,7 +55,12 @@ class MainFragmentAdapter(private var onItemViewClickListener: OnItemViewClickLi
             itemView.findViewById<TextView>(R.id.tv_film_name).text = film.title
             itemView.findViewById<TextView>(R.id.tv_film_year).text = film.vote_average.toString()
             itemView.findViewById<TextView>(R.id.tv_film_rating).text = film.vote_average.toString()
-            itemView.findViewById<ImageView>(R.id.movie_poster).setImageResource(R.drawable.movie)
+            //itemView.findViewById<ImageView>(R.id.movie_poster).setImageResource(R.drawable.movie)
+
+            val poster = itemView.findViewById<ImageView>(R.id.movie_poster)
+            Picasso.get()
+                .load(film.getPosterURL())
+                .into(poster);
 
             itemView.setOnClickListener {
                 onItemViewClickListener?.onItemViewClick(film)

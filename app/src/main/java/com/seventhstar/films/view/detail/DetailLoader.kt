@@ -21,7 +21,7 @@ class DetailLoader(private val listener: DetailLoaderListener, private val id: I
     fun loadFilmInfo() {
         try {
             val uri =
-                URL("https://api.themoviedb.org/3/movie/${id}")
+                URL("https://api.themoviedb.org/3/movie/${id}?api_key=${com.seventhstar.films.BuildConfig.API_KEY}")
             val handler = Handler()
             Thread(Runnable {
                 lateinit var urlConnection: HttpsURLConnection
