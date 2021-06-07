@@ -21,7 +21,7 @@ class MainLoader(private val listener: MainLoaderListener) {
     fun loadFilmsList() {
         try {
             val uri =
-                URL("https://api.themoviedb.org/3/movie/popular")
+                URL("https://api.themoviedb.org/3/movie/popular?api_key=${BuildConfig.API_KEY}")
             val handler = Handler()
             Thread(Runnable {
                 lateinit var urlConnection: HttpsURLConnection
