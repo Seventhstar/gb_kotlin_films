@@ -1,8 +1,12 @@
 package com.seventhstar.films.model
 
+import android.os.Build
+import androidx.annotation.RequiresApi
+
 class RepositoryImpl : Repository {
-    override fun getFilmsFromServer(): FilmsList {
-        return FilmsList()
+    @RequiresApi(Build.VERSION_CODES.N)
+    override fun getFilmsFromServer(): List<Film> {
+        return getServerFilms()
     }
 
     override fun getFilmsFromLocalStorage(): List<Film> {

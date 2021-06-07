@@ -7,18 +7,26 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.seventhstar.films.R
-import com.seventhstar.films.model.Film
+import com.seventhstar.films.model.FilmDTO
+import com.seventhstar.films.model.FilmsDTO
 import com.seventhstar.films.view.MainFragment.OnItemViewClickListener
 
 class MainFragmentAdapter(private var onItemViewClickListener: OnItemViewClickListener?) :
     RecyclerView.Adapter<MainFragmentAdapter.MainViewHolder>() {
 
-    private var filmsData: List<Film> = listOf()
+    //private var filmsData: List<Film> = listOf()
+    private var filmsDTOData: List<FilmDTO> = listOf()
 
-    fun setData(data: List<Film>) {
-        filmsData = data
+//    fun setData(data: List<Film>) {
+//      //  filmsData = data
+//        notifyDataSetChanged()
+//    }
+
+    fun setDTOData(data: List<FilmDTO>) {
+        filmsDTOData = data
         notifyDataSetChanged()
     }
+
 
     fun removeListener() {
         onItemViewClickListener = null
@@ -32,17 +40,20 @@ class MainFragmentAdapter(private var onItemViewClickListener: OnItemViewClickLi
     }
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
-        holder.bind(filmsData[position])
+        holder.bind(filmsDTOData[position])
     }
 
     override fun getItemCount(): Int {
-        return filmsData.size
+        //return filmsData.size
+        return filmsDTOData.size
     }
 
     inner class MainViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(film: Film) {
-            itemView.findViewById<TextView>(R.id.tv_film_name).text = film.name
-            itemView.findViewById<TextView>(R.id.tv_film_year).text = film.year.toString()
+
+        fun bind(film: FilmDTO) {
+            itemView.findViewById<TextView>(R.id.tv_film_name).text = film.title
+            itemView.findViewById<TextView>(R.id.tv_film_year).text = film.vote_average.toString()
+            itemView.findViewById<TextView>(R.id.tv_film_rating).text = film.vote_average.toString()
             itemView.findViewById<ImageView>(R.id.movie_poster).setImageResource(R.drawable.movie)
 
             itemView.setOnClickListener {
