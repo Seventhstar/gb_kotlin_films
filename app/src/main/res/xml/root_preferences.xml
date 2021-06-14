@@ -1,0 +1,29 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="@string/content">
+
+        <SwitchPreferenceCompat
+            app:key="showAdult"
+            app:title="@string/show_adult" />
+
+        <SwitchPreferenceCompat
+            app:dependency="showAdult"
+            app:key="attachment"
+            app:summaryOff="@string/attachment_summary_off"
+            app:summaryOn="@string/attachment_summary_on"
+            app:title="@string/attachment_title" />
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/login">
+        <EditTextPreference
+            android:key="Login"
+            android:summary="@string/login"
+            android:title="Login" />
+        <EditTextPreference
+            android:key="Password"
+            android:title="Password" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
