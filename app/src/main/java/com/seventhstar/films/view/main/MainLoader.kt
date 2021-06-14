@@ -1,4 +1,4 @@
-package com.seventhstar.films.view
+package com.seventhstar.films.view.main
 
 import android.os.Build
 import android.os.Handler

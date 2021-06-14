@@ -1,19 +1,11 @@
 package com.seventhstar.films.model
 
 import android.os.Build
-import android.os.Handler
 import android.os.Parcelable
-import android.util.Log
 import androidx.annotation.RequiresApi
-import com.google.gson.Gson
-import com.seventhstar.films.viewmodel.AppState
 import kotlinx.android.parcel.Parcelize
 import java.io.BufferedReader
-import java.io.InputStreamReader
-import java.net.MalformedURLException
-import java.net.URL
 import java.util.stream.Collectors
-import javax.net.ssl.HttpsURLConnection
 
 @Parcelize
 data class Film(
