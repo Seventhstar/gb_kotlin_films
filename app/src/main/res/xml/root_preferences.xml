@@ -3,9 +3,14 @@
 
     <PreferenceCategory app:title="@string/content">
 
+        Settings
         <SwitchPreferenceCompat
             app:key="showAdult"
             app:title="@string/show_adult" />
+
+        <SwitchPreferenceCompat
+            app:key="showOnlyBest"
+            app:title="@string/show_only_best" />
 
         <SwitchPreferenceCompat
             app:dependency="showAdult"

@@ -1,24 +1,19 @@
 package com.seventhstar.films.viewmodel
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.seventhstar.films.app.App
 import com.seventhstar.films.app.AppState
 import com.seventhstar.films.model.FilmsDTO
-import com.seventhstar.films.model.Repository
-import com.seventhstar.films.model.RepositoryImpl
 import com.seventhstar.films.repository.LocalRepositoryImpl
 import com.seventhstar.films.repository.MainRepository
 import com.seventhstar.films.repository.MainRepositoryImpl
 import com.seventhstar.films.repository.RemoteDataSource
 import com.seventhstar.films.utils.convertDtoToModel
+import com.seventhstar.films.utils.convertEntityToModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.io.BufferedReader
-import java.util.stream.Collectors
 
 private const val SERVER_ERROR = "Ошибка сервера"
 
@@ -34,8 +29,6 @@ class MainViewModel(
 
     fun getFilmsFromRemoteSource() {
         liveDataToObserve.value = AppState.Loading
-        val favorites = favoritesRepositoryImpl.getAllFavorites()
-
         mainRepositoryImpl.getFilmsFromServer(callback)
     }
 
@@ -76,7 +69,8 @@ class MainViewModel(
         liveDataToObserve.value = AppState.Loading
         Thread {
             Thread.sleep(1000)
-           // liveDataToObserve.postValue(AppState.Success(favoritesRepositoryImpl.getFilmsFromLocalStorage()))
+            val favorites = favoritesRepositoryImpl.getAllFavorites()
+            liveDataToObserve.postValue(AppState.Success(convertEntityToModel(favorites)))
         }.start()
     }
 

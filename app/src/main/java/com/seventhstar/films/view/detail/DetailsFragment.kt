@@ -9,12 +9,14 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.seventhstar.films.R
 import com.seventhstar.films.app.AppState
 import com.seventhstar.films.databinding.DetailsFragmentBinding
 import com.seventhstar.films.model.Film
 import com.seventhstar.films.model.FilmDTO
 import com.seventhstar.films.viewmodel.DetailsViewModel
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.details_fragment.*
 
 class DetailsFragment : Fragment() {
 
@@ -35,8 +37,14 @@ class DetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         filmBundle = arguments?.getParcelable(BUNDLE_EXTRA_DTO) ?: Film()
 
-        binding.btnMakeFavorite.setOnClickListener {
-            viewModel.saveFavoriteToDB(filmBundle)
+        val make_favorite = binding.btnMakeFavorite
+        make_favorite.setOnClickListener {
+            if (viewModel.isFavorite(filmBundle.id)) {
+                binding.btnMakeFavorite.setBackgroundResource(R.drawable.ic_not_favorites)
+            } else {
+                viewModel.saveFavoriteToDB(filmBundle)
+                binding.btnMakeFavorite.setBackgroundResource(R.drawable.ic_favorites)
+            }
         }
         viewModel.getLiveData().observe(viewLifecycleOwner, Observer { renderData(it) })
         viewModel.getDataFromServer(filmBundle.id)

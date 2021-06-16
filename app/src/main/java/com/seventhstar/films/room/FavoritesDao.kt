@@ -8,7 +8,7 @@ interface FavoritesDao {
     fun all(): List<FavoritesEntity>
 
     @Query("SELECT * FROM FavoritesEntity WHERE filmId LIKE :id")
-    fun getFavoriteByID(id: Long): List<FavoritesEntity>
+    fun getFavoriteByID(id: Int): List<FavoritesEntity>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(entity: FavoritesEntity)

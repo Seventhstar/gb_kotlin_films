@@ -35,6 +35,10 @@ class DetailsViewModel(
         favoritesRepositoryImpl.saveEntity(film)
     }
 
+    fun isFavorite(id: Int): Boolean {
+        return favoritesRepositoryImpl.isFavorite(id)
+    }
+
     private val callback = object :
         retrofit2.Callback<FilmDTO> {
 

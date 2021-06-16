@@ -13,10 +13,6 @@ class SettingsFragment : PreferenceFragmentCompat()  {
 
     }
 
-
-
-//    onCha
-
     companion object {
         fun newInstance() = SettingsFragment()
     }

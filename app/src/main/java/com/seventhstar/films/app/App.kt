@@ -27,6 +27,7 @@ class App : Application() {
                             FavoritesDatabase::class.java,
                             DB_NAME
                         )
+                            .fallbackToDestructiveMigration()
                             .allowMainThreadQueries()
                             .build()
                     }
