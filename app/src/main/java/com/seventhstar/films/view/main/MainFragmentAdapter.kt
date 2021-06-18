@@ -1,7 +1,5 @@
 package com.seventhstar.films.view.main
 
-import android.content.ContentValues.TAG
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,18 +8,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.seventhstar.films.R
 import com.seventhstar.films.model.Film
-import com.seventhstar.films.model.FilmDTO
 import com.seventhstar.films.view.main.MainFragment.OnItemViewClickListener
-import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
-import java.lang.Exception
-
 
 class MainFragmentAdapter(private var onItemViewClickListener: OnItemViewClickListener?) :
     RecyclerView.Adapter<MainFragmentAdapter.MainViewHolder>() {
 
     private var filmsData: List<Film> = listOf()
-
 
     fun setData(data: List<Film>) {
         filmsData = data
@@ -44,16 +37,14 @@ class MainFragmentAdapter(private var onItemViewClickListener: OnItemViewClickLi
     }
 
     override fun getItemCount(): Int {
-        //return filmsData.size
         return filmsData.size
     }
 
     inner class MainViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(film: Film) {
             itemView.findViewById<TextView>(R.id.tv_film_name).text = film.name
-//            itemView.findViewById<TextView>(R.id.tv_film_year).text = film.vote_average.toString()
-//            itemView.findViewById<TextView>(R.id.tv_film_rating).text = film.vote_average.toString()
-            //itemView.findViewById<ImageView>(R.id.movie_poster).setImageResource(R.drawable.movie)
+            itemView.findViewById<TextView>(R.id.tv_film_year).text = film.year.toString()
+            itemView.findViewById<TextView>(R.id.tv_film_rating).text = film.rating.toString()
 
             val poster = itemView.findViewById<ImageView>(R.id.movie_poster)
 

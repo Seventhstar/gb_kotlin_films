@@ -25,7 +25,6 @@ class DetailsViewModel(
 
     fun getLiveData() = detailsLiveData
 
-    //@RequiresApi(Build.VERSION_CODES.N)
     fun getDataFromServer(id: Int) {
         detailsLiveData.value = AppState.Loading
         detailsRepositoryImpl.getDetailsFromServer(id, callback)

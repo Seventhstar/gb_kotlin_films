@@ -25,4 +25,5 @@
     <string name="contact_list">contacts</string>
     <string name="settings">Settings</string>
     <string name="show_only_best"><![CDATA[Show only high rate (>8)]]></string>
+    <string name="search_title">search</string>
 </resources>

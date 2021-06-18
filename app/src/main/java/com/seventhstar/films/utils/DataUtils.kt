@@ -10,8 +10,8 @@ fun convertFavoritesEntityToFavorite(all: List<FavoritesEntity>): List<Favorite>
         Favorite(
             it.id,
             it.filmId,
-            it.posterUrl,
             it.name,
+            it.posterUrl,
             it.year,
             it.rating,
             it.description

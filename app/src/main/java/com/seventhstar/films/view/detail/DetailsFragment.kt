@@ -35,6 +35,7 @@ class DetailsFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         filmBundle = arguments?.getParcelable(BUNDLE_EXTRA_DTO) ?: Film()
 
         val make_favorite = binding.btnMakeFavorite
@@ -47,6 +48,7 @@ class DetailsFragment : Fragment() {
             }
         }
         viewModel.getLiveData().observe(viewLifecycleOwner, Observer { renderData(it) })
+
         viewModel.getDataFromServer(filmBundle.id)
     }
 
@@ -66,6 +68,7 @@ class DetailsFragment : Fragment() {
 //                    .setAction(getString(R.string.reload)) { viewModel.getFilmsFromLocalStorage() }
 //                    .show()
             }
+            else -> {}
         }
     }
 
