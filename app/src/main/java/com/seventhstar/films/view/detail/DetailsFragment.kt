@@ -7,54 +7,80 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import com.seventhstar.films.R
+import com.seventhstar.films.app.AppState
 import com.seventhstar.films.databinding.DetailsFragmentBinding
+import com.seventhstar.films.model.Film
 import com.seventhstar.films.model.FilmDTO
+import com.seventhstar.films.viewmodel.DetailsViewModel
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.details_fragment.*
 
 class DetailsFragment : Fragment() {
 
     private var _binding: DetailsFragmentBinding? = null
     private val binding get() = _binding!!
-    private lateinit var filmBundle: FilmDTO
-
-    private val onLoadListener: DetailLoader.DetailLoaderListener =
-        object : DetailLoader.DetailLoaderListener {
-
-            override fun onLoaded(filmDTO: FilmDTO) {
-                displayFilmInfo(filmDTO)
-            }
-
-            override fun onFailed(throwable: Throwable) {
-                //Обработка ошибки
-            }
-        }
+    private lateinit var filmBundle: Film
+    private val viewModel: DetailsViewModel by lazy { ViewModelProvider(this).get(DetailsViewModel::class.java) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = DetailsFragmentBinding.inflate(inflater, container, false)
-        return binding.getRoot()
+        return binding.root
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        filmBundle = arguments?.getParcelable(BUNDLE_EXTRA_DTO) ?: FilmDTO()
 
-        // TODO show load spinner
-        //.visibility = View.VISIBLE
-        val loader = filmBundle.id?.let { DetailLoader(onLoadListener, it) }
-        loader?.loadFilmInfo()
+        filmBundle = arguments?.getParcelable(BUNDLE_EXTRA_DTO) ?: Film()
+
+        val make_favorite = binding.btnMakeFavorite
+        make_favorite.setOnClickListener {
+            if (viewModel.isFavorite(filmBundle.id)) {
+                binding.btnMakeFavorite.setBackgroundResource(R.drawable.ic_not_favorites)
+            } else {
+                viewModel.saveFavoriteToDB(filmBundle)
+                binding.btnMakeFavorite.setBackgroundResource(R.drawable.ic_favorites)
+            }
+        }
+        viewModel.getLiveData().observe(viewLifecycleOwner, Observer { renderData(it) })
+
+        viewModel.getDataFromServer(filmBundle.id)
     }
 
-    private fun displayFilmInfo(filmDTO: FilmDTO) {
+    private fun renderData(appState: AppState) {
+
+        when (appState) {
+            is AppState.Loaded -> {
+                displayFilmInfo(appState.filmInfo)
+            }
+            is AppState.Loading -> {
+                //loadingLayout.visibility = View.VISIBLE
+            }
+            is AppState.Error -> {
+                //loadingLayout.visibility = View.GONE
+//                Snackbar
+//                    .make(binding.mainView, getString(R.string.error), Snackbar.LENGTH_INDEFINITE)
+//                    .setAction(getString(R.string.reload)) { viewModel.getFilmsFromLocalStorage() }
+//                    .show()
+            }
+            else -> {}
+        }
+    }
+
+
+    private fun displayFilmInfo(filmInfo: FilmDTO) {
         with(binding) {
-            tvDetailsFilmName.text = filmDTO.title
-            tvFilmDescription.text = filmDTO.overview
-            tvDetailFilmYear.text = filmDTO.vote_average.toString()
+            tvDetailsFilmName.text = filmInfo.title
+            tvFilmDescription.text = filmInfo.overview
+            tvDetailFilmYear.text = filmInfo.vote_average.toString()
 
             Picasso.get()
-                .load(filmDTO.getPosterURL())
+                .load(filmInfo.getPosterURL())
                 .into(detailFilmPoster);
         }
     }
