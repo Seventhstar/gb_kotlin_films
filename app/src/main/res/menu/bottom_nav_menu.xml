@@ -16,4 +16,9 @@
         android:icon="@android:drawable/ic_menu_set_as"
         android:title="@string/contact_list" />
 
+    <item
+        android:id="@+id/mapsFragment"
+        android:icon="@android:drawable/ic_menu_mapmode"
+        android:title="@string/google_map" />
+
 </menu>

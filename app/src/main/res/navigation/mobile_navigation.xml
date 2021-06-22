@@ -61,4 +61,9 @@
         app:popUpTo="@id/settingsFragment"
         app:popUpToInclusive="true"
         app:destination="@id/settingsFragment"/>
+    <fragment
+        android:id="@+id/mapsFragment"
+        android:name="com.seventhstar.films.MapsFragment"
+        android:label="fragment_maps"
+        tools:layout="@layout/fragment_maps" />
 </navigation>

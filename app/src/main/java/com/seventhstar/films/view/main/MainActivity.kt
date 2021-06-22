@@ -20,6 +20,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.preference.PreferenceManager
@@ -33,8 +34,6 @@ class MainActivity() : AppCompatActivity(), OnSharedPreferenceChangeListener,
 
     private val receiver = MainBroadcastReceiver()
     private var sharedPreferences: SharedPreferences? = null
-
-    //private val viewModel: MainViewModel by viewModels()
     private val viewModel: MainViewModel by lazy { ViewModelProvider(this).get(MainViewModel::class.java) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,7 +42,7 @@ class MainActivity() : AppCompatActivity(), OnSharedPreferenceChangeListener,
 
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+//        val toolbar = findViewById<Toolbar>(R.id.toolbar)
         val navController = findNavController(R.id.nav_host_fragment)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -53,27 +52,15 @@ class MainActivity() : AppCompatActivity(), OnSharedPreferenceChangeListener,
             )
         )
 
+
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
 
-        //setSupportActionBar(findViewById(R.id.toolbar))
-        //getSupportActionBar().setTitle("Comments");
-
-        //supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         val showAdult = sharedPreferences!!.getBoolean("showAdult", false).toString()
-        //Toast.makeText(this, "show_adult: $showAdult", Toast.LENGTH_SHORT).show()
 
         registerReceiver(receiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
-
-//        if (savedInstanceState == null) {
-//            supportFragmentManager.beginTransaction()
-//                .replace(R.id.container, MainFragment.newInstance())
-//                .commitNow()
-//        }
-        handleIntent(intent)
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -92,33 +79,24 @@ class MainActivity() : AppCompatActivity(), OnSharedPreferenceChangeListener,
         return true
     }
 
-    override fun onNewIntent(intent: Intent?) {
-        super.onNewIntent(intent)
-        intent?.let { handleIntent(it) }
-    }
-
-    private fun handleIntent(intent: Intent) {
-
-        if (Intent.ACTION_SEARCH == intent.action) {
-            val query = intent.getStringExtra(SearchManager.QUERY)
-            //use the query to search your data somehow
-        }
-    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        Toast.makeText(
-            this,
-            item.toString() + " : " + (item.itemId == R.id.settingsFragment),
-            Toast.LENGTH_SHORT
-        ).show()
-        val manager = supportFragmentManager
+//        Toast.makeText(
+//            this,
+//            item.toString() + " : " + (item.itemId == R.id.settingsFragment),
+//            Toast.LENGTH_SHORT
+//        ).show()
+//        val manager = supportFragmentManager
+//
+//        if (item.itemId == R.id.settingsFragment) {
+//            Navigation
+//                .findNavController(this, R.id.nav_host_fragment)
+//                .navigate(R.id.action_global_open_settings_fragment)
+//        }
 
-        if (item.itemId == R.id.settingsFragment) {
-            Navigation
-                .findNavController(this, R.id.nav_host_fragment)
-                .navigate(R.id.action_global_open_settings_fragment)
-        }
-        return super.onOptionsItemSelected(item)
+        return NavigationUI.onNavDestinationSelected(
+            item,
+            findNavController(R.id.nav_host_fragment)
+        ) || super.onOptionsItemSelected(item)
 
     }
 
@@ -128,8 +106,6 @@ class MainActivity() : AppCompatActivity(), OnSharedPreferenceChangeListener,
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
-        //TODO("Not yet implemented")
-        Toast.makeText(this, "Search text: $query", Toast.LENGTH_SHORT).show()
         viewModel.setFilter(query)
         return false
     }
