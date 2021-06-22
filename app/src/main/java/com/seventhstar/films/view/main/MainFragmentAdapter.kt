@@ -1,4 +1,4 @@
-package com.seventhstar.films.view
+package com.seventhstar.films.view.main
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,26 +7,19 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.seventhstar.films.R
-import com.seventhstar.films.model.FilmDTO
-import com.seventhstar.films.model.FilmsDTO
-import com.seventhstar.films.view.MainFragment.OnItemViewClickListener
+import com.seventhstar.films.model.Film
+import com.seventhstar.films.view.main.MainFragment.OnItemViewClickListener
+import com.squareup.picasso.Picasso
 
 class MainFragmentAdapter(private var onItemViewClickListener: OnItemViewClickListener?) :
     RecyclerView.Adapter<MainFragmentAdapter.MainViewHolder>() {
 
-    //private var filmsData: List<Film> = listOf()
-    private var filmsDTOData: List<FilmDTO> = listOf()
+    private var filmsData: List<Film> = listOf()
 
-//    fun setData(data: List<Film>) {
-//      //  filmsData = data
-//        notifyDataSetChanged()
-//    }
-
-    fun setDTOData(data: List<FilmDTO>) {
-        filmsDTOData = data
+    fun setData(data: List<Film>) {
+        filmsData = data
         notifyDataSetChanged()
     }
-
 
     fun removeListener() {
         onItemViewClickListener = null
@@ -40,23 +33,27 @@ class MainFragmentAdapter(private var onItemViewClickListener: OnItemViewClickLi
     }
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
-        holder.bind(filmsDTOData[position])
+        holder.bind(filmsData[position])
     }
 
     override fun getItemCount(): Int {
-        //return filmsData.size
-        return filmsDTOData.size
+        return filmsData.size
     }
 
     inner class MainViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        fun bind(film: Film) {
+            itemView.findViewById<TextView>(R.id.tv_film_name).text = film.name
+            itemView.findViewById<TextView>(R.id.tv_film_year).text = film.year.toString()
+            itemView.findViewById<TextView>(R.id.tv_film_rating).text = film.rating.toString()
 
-        fun bind(film: FilmDTO) {
-            itemView.findViewById<TextView>(R.id.tv_film_name).text = film.title
-            itemView.findViewById<TextView>(R.id.tv_film_year).text = film.vote_average.toString()
-            itemView.findViewById<TextView>(R.id.tv_film_rating).text = film.vote_average.toString()
-            itemView.findViewById<ImageView>(R.id.movie_poster).setImageResource(R.drawable.movie)
+            val poster = itemView.findViewById<ImageView>(R.id.movie_poster)
 
-            itemView.setOnClickListener {
+            Picasso.get()
+                .load(film.imgUrl)
+                .into(poster);
+
+            itemView.setOnClickListener()
+            {
                 onItemViewClickListener?.onItemViewClick(film)
             }
         }

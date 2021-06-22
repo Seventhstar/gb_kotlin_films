@@ -3,4 +3,31 @@
     <string name="movie_image_description">poster of film</string>
     <string name="text_movie">good film</string>
     <string name="year">2015</string>
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="show_adult">Show adult films</string>
+    <string name="content">Content</string>
+    <string name="login">login</string>
+    <string name="popular">popular</string>
+    <string name="favorites">favorites</string>
+    <string name="contact_list">contacts</string>
+    <string name="settings">Settings</string>
+    <string name="show_only_best"><![CDATA[Show only high rate (>8)]]></string>
+    <string name="search_title">search</string>
+    <string name="google_map">Google map</string>
+    <string name="marker_start">start position</string>
+    <string name="button_search_map">Search</string>
+    <string name="default_address">пл.Восстания</string>
 </resources>

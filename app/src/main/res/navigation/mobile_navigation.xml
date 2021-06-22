@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_popular">
+
+    <fragment
+        android:id="@+id/navigation_popular"
+        android:name="com.seventhstar.films.view.main.MainFragment"
+        android:label="@string/popular"
+        tools:layout="@layout/main_fragment">
+        <argument
+            android:name="Popular"
+            android:defaultValue="true"
+            app:argType="boolean" />
+        <action
+            android:id="@+id/action_navigation_popular_to_detail"
+            app:destination="@id/detail"
+            app:popUpTo="@id/navigation_popular"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_favorites"
+        android:name="com.seventhstar.films.view.main.MainFragment"
+        android:label="@string/favorites"
+        tools:layout="@layout/main_fragment">
+        <argument
+            android:name="Popular"
+            android:defaultValue="false"
+            app:argType="boolean" />
+        <action
+            android:id="@+id/action_navigation_popular_to_detail"
+            app:destination="@id/detail" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_notifications"
+        android:name="com.seventhstar.films.view.contacts.FragmentContacts"
+        android:label="@string/contact_list"
+        tools:layout="@layout/contacts_fragment" />
+
+    <fragment
+        android:id="@+id/detail"
+        android:name="com.seventhstar.films.view.detail.DetailsFragment"
+        android:label="details"
+        tools:layout="@layout/details_fragment" >
+        <action
+            android:id="@+id/action_detail_to_navigation_popular"
+            app:destination="@id/navigation_popular"
+            app:popUpTo="@id/navigation_popular" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.seventhstar.films.view.SettingsFragment"
+        android:label="@string/settings" />
+
+    <action android:id="@+id/action_global_open_settings_fragment"
+        app:popUpTo="@id/settingsFragment"
+        app:popUpToInclusive="true"
+        app:destination="@id/settingsFragment"/>
+    <fragment
+        android:id="@+id/mapsFragment"
+        android:name="com.seventhstar.films.MapsFragment"
+        android:label="fragment_maps"
+        tools:layout="@layout/fragment_maps" />
+</navigation>
